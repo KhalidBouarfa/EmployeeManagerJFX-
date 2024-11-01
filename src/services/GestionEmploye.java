@@ -150,7 +150,7 @@ public class GestionEmploye implements InterfaceGestionEmploye{
                 String prenom = resultSet.getString("prenom");
                 String adresse = resultSet.getString("adresse");
 
-                Employe employe = new Employe(nom,prenom,adresse);
+                Employe employe = new Employe(matricule,nom,prenom,adresse);
                 return  employe;
 
             }

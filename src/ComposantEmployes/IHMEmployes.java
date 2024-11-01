@@ -1,6 +1,7 @@
 package ComposantEmployes;
 import models.Employe;
 import services.GestionEmploye;
+import services.GestionEmployeARRAYLIST;
 import services.InterfaceGestionEmploye;
 
 import java.util.Scanner;
@@ -9,8 +10,8 @@ public class IHMEmployes {
     private InterfaceGestionEmploye gestionEmploye;
     private Scanner scanner;
 
-    public IHMEmployes(GestionEmploye gestionEmploye) {
-        this.gestionEmploye = gestionEmploye;
+    public IHMEmployes() {
+        gestionEmploye = new GestionEmploye();
         this.scanner = new Scanner(System.in);
     }
 
@@ -54,6 +55,9 @@ public class IHMEmployes {
     }
 
     private void ajouterEmploye() {
+        System.out.println("Entrez le matricule: ");
+        int matricule = Integer.parseInt(scanner.nextLine());
+
         System.out.print("Entrez le nom: ");
         String nom = scanner.nextLine();
 
@@ -63,7 +67,7 @@ public class IHMEmployes {
         System.out.print("Entrez l'adresse: ");
         String adresse = scanner.nextLine();
 
-        Employe nouvelEmploye = new Employe(nom, prenom, adresse);
+        Employe nouvelEmploye = new Employe(matricule,nom, prenom, adresse);
         if(gestionEmploye.ajouterEmploye(nouvelEmploye)) {
             System.out.println("Employé ajouté avec succès !");
         }else {
@@ -103,7 +107,7 @@ public class IHMEmployes {
 
         Employe employe = gestionEmploye.rechercherEmploye(matricule);
         if(employe != null){
-            System.out.println("Matricule : "+ matricule);
+            System.out.println("Matricule : "+ employe.getMatricule());
             System.out.println("Nom : "+ employe.getNom());
             System.out.println("Prenom : "+ employe.getPrenom());
             System.out.println("Adresse : "+ employe.getAdresse());

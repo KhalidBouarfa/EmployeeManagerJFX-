@@ -7,7 +7,8 @@ public class Employe {
     private String adresse;
 
 
-    public Employe( String nom, String prenom, String adresse) {
+    public Employe(int matricule, String nom, String prenom, String adresse) {
+        this.matricule = matricule;
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;

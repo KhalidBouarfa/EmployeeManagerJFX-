@@ -9,10 +9,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        GestionEmploye gestionEmploye = new GestionEmploye();
         GestionFicheSalaire gestionFicheSalaire = new GestionFicheSalaire();
 
-        IHMEmployes ihmEmployes = new IHMEmployes(gestionEmploye);
+        IHMEmployes ihmEmployes = new IHMEmployes();
         IHMFichesSalaire ihmFichesSalaire = new IHMFichesSalaire(gestionFicheSalaire);
 
         Scanner scanner = new Scanner(System.in);
