@@ -1,19 +1,24 @@
 package ComposantSalaires;
 
+import models.Employe;
 import models.FicheSalaire;
+import services.GestionEmploye;
 import services.GestionFicheSalaire;
+import services.InterfaceGestionEmploye;
+import services.InterfaceGestionFicheSalaire;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class IHMFichesSalaire {
-    private GestionFicheSalaire gestionFicheSalaire;
+    private InterfaceGestionFicheSalaire gestionFicheSalaire;
+    private InterfaceGestionEmploye gestionEmploye;
     private Scanner scanner;
 
-    public IHMFichesSalaire(GestionFicheSalaire gestionFicheSalaire) {
-        this.gestionFicheSalaire = gestionFicheSalaire;
+    public IHMFichesSalaire() {
+        gestionFicheSalaire = new GestionFicheSalaire();
+        gestionEmploye = new GestionEmploye();
         this.scanner = new Scanner(System.in);
     }
 
@@ -23,8 +28,8 @@ public class IHMFichesSalaire {
             System.out.println("1. Ajouter une fiche de salaire");
             System.out.println("2. Modifier une fiche de salaire");
             System.out.println("3. Afficher toutes les fiches de salaire");
-            System.out.println("4. Rechercher un employé");
-            System.out.println("5. Supprimer un employé");
+            System.out.println("4. Rechercher une fiche de salaire");
+            System.out.println("5. Supprimer une fiche de salaire");
             System.out.println("0. Quitter");
             System.out.print("Choix: ");
             int choix = scanner.nextInt();
@@ -58,22 +63,31 @@ public class IHMFichesSalaire {
     private void ajouterFicheSalaire() {
         System.out.println("donner le matricule de l'employe: ");
         int matricule = scanner.nextInt();
-        System.out.print("Numéro de fiche: ");
-        int nFiche = scanner.nextInt();
+        //rechercher employe par son matricule
+        Employe employe = gestionEmploye.rechercherEmploye(matricule);
+        if (employe == null){
+            System.out.println("Aucun employé trouvé avec ce matricule.");
+            return;
+        }
+        System.out.print("Entrer numero de fiche: ");
+        int nfiche = scanner.nextInt();
         System.out.print("Date de fiche (YYYY-MM-DD): ");
         LocalDate dateF = LocalDate.parse(scanner.next());
         System.out.print("Nombre d'heures: ");
         int nbHeures = scanner.nextInt();
         System.out.print("Taux horaire: ");
         int tauxH = scanner.nextInt();
-        System.out.print("Montant brut: ");
-        double montantBrut = scanner.nextDouble();
-        System.out.print("Taxe: ");
-        double tax = scanner.nextDouble();
-        System.out.print("Montant net: ");
-        double montantNet = scanner.nextDouble();
 
-        FicheSalaire ficheSalaire = new FicheSalaire(nFiche, dateF, nbHeures, tauxH, montantBrut, tax, montantNet, null);
+        //calcul de montant brut
+        double montantBrut = nbHeures * tauxH;
+
+        System.out.print("Taxe (en %) : ");
+        double tax = scanner.nextDouble();
+
+        //calcul de montant Net
+        double montantNet = montantBrut * (1 - tax/100);
+
+        FicheSalaire ficheSalaire = new FicheSalaire(nfiche, dateF, nbHeures, tauxH, montantBrut, tax, montantNet, employe);
         System.out.println(ficheSalaire);
         if( gestionFicheSalaire.ajouterFicheSalaire(ficheSalaire,matricule)){
             System.out.println("Fiche de salaire ajoutée avec succès !");
@@ -92,39 +106,53 @@ public class IHMFichesSalaire {
         int nbHeures = scanner.nextInt();
         System.out.print("Nouveau taux horaire: ");
         int tauxH = scanner.nextInt();
-        System.out.print("Nouveau montant brut: ");
-        double montantBrut = scanner.nextDouble();
-        System.out.print("Nouvelle taxe: ");
-        double tax = scanner.nextDouble();
-        System.out.print("Nouveau montant net: ");
-        double montantNet = scanner.nextDouble();
 
-        FicheSalaire nouvelleFiche = new FicheSalaire(nFiche, dateF, nbHeures, tauxH, montantBrut, tax, montantNet, null);
+        //calcul de montant brut
+        double montantBrut = nbHeures * tauxH;
+
+        System.out.print("Nouveau Taxe (en %) : ");
+        double tax = scanner.nextDouble();
+
+        //calcul de montant Net
+        double montantNet = montantBrut * (1 - tax/100);
+
+        Employe employe = gestionFicheSalaire.rechercherFicheSalaire(nFiche).getEmploye();
+
+        FicheSalaire nouvelleFiche = new FicheSalaire(nFiche,dateF, nbHeures, tauxH, montantBrut, tax, montantNet, employe);
         gestionFicheSalaire.modifierFicheSalaire(nFiche, nouvelleFiche);
         System.out.println("Fiche de salaire modifiée avec succès !");
     }
 
     private void afficherFichesSalaire() {
-        List<FicheSalaire> fiches = null;
-        if (fiches.isEmpty()) {
-            System.out.println("Aucune fiche de salaire à afficher.");
-            return;
-        }
+        gestionFicheSalaire.afficherFichesSalaire();
+    }
 
-        System.out.println("********** FICHES DE SALAIRE **********");
-        for (FicheSalaire fiche : fiches) {
-            System.out.println("Numéro de fiche: " + fiche.getnFiche());
-            System.out.println("Date de fiche: " + fiche.getDateF());
-            System.out.println("Nombre d'heures: " + fiche.getNbHeures());
-            System.out.println("Taux horaire: " + fiche.getTauxH());
-            System.out.println("Montant brut: " + fiche.getMontantBrut());
-            System.out.println("Taxe: " + fiche.getTax());
-            System.out.println("Montant net: " + fiche.getMontantNet());
-            System.out.println("------------------------------------");
+    private void supprimerFicheSalaire(){
+        System.out.println("Donnez le numero de la fiche : ");
+        int nFiche = scanner.nextInt();
+        if(gestionFicheSalaire.supprimerFicheSalaire(nFiche)){
+            System.out.println("Fiche supprimé avec succés");
+        }else{
+            System.out.println("une erreur est survenue lors de la supprission");
         }
     }
 
-    private void supprimerFicheSalaire(){}
+    private void rechercherFicheSalaire(){
+        System.out.println("Donnez le numero de la fiche : ");
+        int nFiche = scanner.nextInt();
 
-    private void rechercherFicheSalaire(){}
+        FicheSalaire ficheSalaire = gestionFicheSalaire.rechercherFicheSalaire(nFiche);
+        if(ficheSalaire != null){
+            System.out.println("Fiche de salaire N° : " + nFiche);
+            System.out.println("Date de la fiche : " + ficheSalaire.getDateF());
+            System.out.println("Nombre d'heures travaillées : " + ficheSalaire.getNbHeures());
+            System.out.println("Taux horaire : " + ficheSalaire.getTauxH() + " MAD");
+            System.out.println("Montant brut : " + ficheSalaire.getMontantBrut() + " MAD");
+            System.out.println("Taxe : " + ficheSalaire.getTax() + " %");
+            System.out.println("Montant net : " + ficheSalaire.getMontantNet() + " MAD");
+            System.out.println("Matricule de l'employé : " + ficheSalaire.getEmploye().getMatricule());
+        }else {
+            System.out.println("Cette fiche n'existe pas dans la base de données.");
+        }
+    }
 }

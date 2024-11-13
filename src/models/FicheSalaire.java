@@ -1,6 +1,5 @@
 package models;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class FicheSalaire {
@@ -13,7 +12,7 @@ public class FicheSalaire {
     private double montantNet;
     private Employe employe;
 
-    public FicheSalaire(int nFiche,LocalDate dateF, int nbHeures, int tauxH, double montantBrut, double tax, double montantNet, Employe employe) {
+    public FicheSalaire(int nFiche, LocalDate dateF, int nbHeures, int tauxH, double montantBrut, double tax, double montantNet, Employe employe) {
         this.nFiche = nFiche;
         this.dateF = dateF;
         this.nbHeures = nbHeures;

@@ -79,17 +79,6 @@ public class GestionEmploye implements InterfaceGestionEmploye{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-//        if (ListEmployes.isEmpty()) {
-//            System.out.println("Aucun employé n'est enregistré.");
-//        } else {
-//            for (Employe employe : ListEmployes) {
-//                System.out.println("Matricule : " + employe.getMatricule());
-//                System.out.println("Nom : " + employe.getNom());
-//                System.out.println("Prénom : " + employe.getPrenom());
-//                System.out.println("Adresse : " + employe.getAdresse());
-//                System.out.println("-------------------------");
-//            }
-//        }
     }
 
     @Override

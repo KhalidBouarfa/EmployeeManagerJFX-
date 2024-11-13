@@ -12,7 +12,7 @@ public class Main {
         GestionFicheSalaire gestionFicheSalaire = new GestionFicheSalaire();
 
         IHMEmployes ihmEmployes = new IHMEmployes();
-        IHMFichesSalaire ihmFichesSalaire = new IHMFichesSalaire(gestionFicheSalaire);
+        IHMFichesSalaire ihmFichesSalaire = new IHMFichesSalaire();
 
         Scanner scanner = new Scanner(System.in);
 

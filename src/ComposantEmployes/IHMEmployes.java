@@ -11,7 +11,7 @@ public class IHMEmployes {
     private Scanner scanner;
 
     public IHMEmployes() {
-        gestionEmploye = new GestionEmploye();
+        gestionEmploye = new GestionEmployeARRAYLIST();
         this.scanner = new Scanner(System.in);
     }
 
