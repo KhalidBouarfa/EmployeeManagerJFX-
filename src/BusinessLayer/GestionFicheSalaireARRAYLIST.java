@@ -1,7 +1,8 @@
-package services;
+package BusinessLayer;
 
 import models.Employe;
 import models.FicheSalaire;
+import BusinessLayer.services.InterfaceGestionFicheSalaire;
 
 import java.util.ArrayList;
 
@@ -63,13 +64,7 @@ public class GestionFicheSalaireARRAYLIST implements InterfaceGestionFicheSalair
     }
 
     @Override
-    public void afficherFichesSalaire() {
-        if (ficheSalaires.isEmpty()) {
-            System.out.println("Aucune fiche de salaire n'est disponible.");
-        } else {
-            for (FicheSalaire fiche : ficheSalaires) {
-                System.out.println(fiche);
-            }
-        }
+    public ArrayList<FicheSalaire> afficherFichesSalaire() {
+        return ficheSalaires;
     }
 }

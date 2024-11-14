@@ -2,13 +2,13 @@ package ComposantSalaires;
 
 import models.Employe;
 import models.FicheSalaire;
-import services.GestionEmploye;
-import services.GestionFicheSalaire;
-import services.InterfaceGestionEmploye;
-import services.InterfaceGestionFicheSalaire;
+import BusinessLayer.GestionEmploye;
+import BusinessLayer.GestionFicheSalaire;
+import BusinessLayer.services.InterfaceGestionEmploye;
+import BusinessLayer.services.InterfaceGestionFicheSalaire;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IHMFichesSalaire {
@@ -124,7 +124,22 @@ public class IHMFichesSalaire {
     }
 
     private void afficherFichesSalaire() {
-        gestionFicheSalaire.afficherFichesSalaire();
+        ArrayList<FicheSalaire> listFicheSalaires =  gestionFicheSalaire.afficherFichesSalaire();
+        if (listFicheSalaires.isEmpty()) {
+            System.out.println("Aucune fiche salaire n'est enregistré.");
+        } else {
+            for (FicheSalaire ficheSalaire : listFicheSalaires) {
+                System.out.println("Fiche de salaire N° : " + ficheSalaire.getNbHeures());
+                System.out.println("Date de la fiche : " + ficheSalaire.getDateF());
+                System.out.println("Nombre d'heures travaillées : " + ficheSalaire.getNbHeures());
+                System.out.println("Taux horaire : " + ficheSalaire.getTauxH() + " MAD");
+                System.out.println("Montant brut : " + ficheSalaire.getMontantBrut() + " MAD");
+                System.out.println("Taxe : " + ficheSalaire.getTax() + " %");
+                System.out.println("Montant net : " + ficheSalaire.getMontantNet() + " MAD");
+                System.out.println("Matricule de l'employé : " + ficheSalaire.getEmploye().getMatricule());
+                System.out.println("-----------------------------");
+            }
+        }
     }
 
     private void supprimerFicheSalaire(){

@@ -1,6 +1,6 @@
 package IHM;
 
-import services.GestionEmploye;
+import BusinessLayer.GestionEmploye;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

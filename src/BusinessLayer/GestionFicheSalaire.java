@@ -1,14 +1,12 @@
-package services;
+package BusinessLayer;
 
-import com.mysql.cj.result.Row;
 import models.Employe;
 import models.FicheSalaire;
-import org.xml.sax.SAXException;
-import services.GestionEmploye;
+import BusinessLayer.services.InterfaceGestionFicheSalaire;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GestionFicheSalaire implements InterfaceGestionFicheSalaire {
     private Connection connection;
@@ -140,15 +138,17 @@ public class GestionFicheSalaire implements InterfaceGestionFicheSalaire {
     }
 
     @Override
-    public void afficherFichesSalaire() {
+    public ArrayList<FicheSalaire> afficherFichesSalaire() {
         String query = "SELECT * FROM fichesalaire";
+        ArrayList<FicheSalaire> listeFicheSalaires = new ArrayList<FicheSalaire>();
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 int nFiche = resultSet.getInt("nFiche");
-                Date dateF = resultSet.getDate("dateF");
+                Date date = resultSet.getDate("dateF");
+                LocalDate dateF = date.toLocalDate();
                 int nbHeures = resultSet.getInt("nbHeures");
                 int tauxH = resultSet.getInt("tauxH");
                 double montantBrut = resultSet.getDouble("montantBrut");
@@ -156,19 +156,16 @@ public class GestionFicheSalaire implements InterfaceGestionFicheSalaire {
                 double montantNet = resultSet.getDouble("montantNet");
                 int employe_id = resultSet.getInt("employe_id");
 
-                System.out.println("Fiche de salaire N° : " + nFiche);
-                System.out.println("Date de la fiche : " + dateF);
-                System.out.println("Nombre d'heures travaillées : " + nbHeures);
-                System.out.println("Taux horaire : " + tauxH + " MAD");
-                System.out.println("Montant brut : " + montantBrut + " MAD");
-                System.out.println("Taxe : " + tax + " %");
-                System.out.println("Montant net : " + montantNet + " MAD");
-                System.out.println("Matricule de l'employé : " + employe_id);
-                System.out.println("-----------------------------");
+                Employe employe = gestionEmploye.rechercherEmploye(employe_id);
+                FicheSalaire ficheSalaire = new FicheSalaire(nFiche,dateF,nbHeures,tauxH,montantBrut,tax,montantNet,employe);
+
+                listeFicheSalaires.add(ficheSalaire);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return listeFicheSalaires;
     }
 
 }

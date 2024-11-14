@@ -1,9 +1,9 @@
 package ComposantEmployes;
 import models.Employe;
-import services.GestionEmploye;
-import services.GestionEmployeARRAYLIST;
-import services.InterfaceGestionEmploye;
+import BusinessLayer.GestionEmployeARRAYLIST;
+import BusinessLayer.services.InterfaceGestionEmploye;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IHMEmployes {
@@ -98,7 +98,18 @@ public class IHMEmployes {
     }
 
     private void afficherEmployes() {
-        gestionEmploye.afficherEmployees();
+        ArrayList<Employe> ListEmployes =  gestionEmploye.afficherEmployees();
+        if (ListEmployes.isEmpty()) {
+            System.out.println("Aucun employé n'est enregistré.");
+        } else {
+            for (Employe employe : ListEmployes) {
+                System.out.println("Matricule : " + employe.getMatricule());
+                System.out.println("Nom : " + employe.getNom());
+                System.out.println("Prénom : " + employe.getPrenom());
+                System.out.println("Adresse : " + employe.getAdresse());
+                System.out.println("-------------------------");
+            }
+        }
     }
 
     private void rechercherEmployes(){

@@ -1,15 +1,12 @@
-package services;
+package BusinessLayer;
 
 import models.Employe;
+import BusinessLayer.services.InterfaceGestionEmploye;
 
-import javax.security.sasl.SaslException;
-import java.net.ConnectException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
-public class GestionEmploye implements InterfaceGestionEmploye{
+public class GestionEmploye implements InterfaceGestionEmploye {
     private Connection connection;
     public GestionEmploye(){
         try{
@@ -59,26 +56,25 @@ public class GestionEmploye implements InterfaceGestionEmploye{
 
 
     @Override
-    public void afficherEmployees() {
+    public ArrayList<Employe> afficherEmployees() {
         String query = "SELECT matricule,nom,prenom, adresse From Employe";
+        ArrayList<Employe> listEmployes = new ArrayList<Employe>();
         try(Statement statement = connection.createStatement()){
             ResultSet resultSet = statement.executeQuery(query);
-            System.out.println("--------Affichage des employes--------");
             while (resultSet.next()){
                 int matricule = resultSet.getInt("matricule");
                 String nom = resultSet.getString("nom");
                 String prenom = resultSet.getString("prenom");
                 String adresse = resultSet.getString("adresse");
 
-                System.out.println("Matricule : "+ matricule);
-                System.out.println("Nom : "+ nom);
-                System.out.println("Prenom : "+ prenom);
-                System.out.println("Adresse : "+ adresse);
-                System.out.println("-----------------------------");
+                Employe employe = new Employe(matricule,nom,prenom,adresse);
+                listEmployes.add(employe);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        return listEmployes;
     }
 
     @Override

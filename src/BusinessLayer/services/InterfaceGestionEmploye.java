@@ -1,4 +1,4 @@
-package services;
+package BusinessLayer.services;
 
 import models.Employe;
 
@@ -9,6 +9,6 @@ public interface InterfaceGestionEmploye {
     public boolean supprimerEmploye (int matricule);
     public boolean modifierEmploye(int matricule, String nom, String prenom, String adresse);
     public Employe rechercherEmploye (int matricule);
-    public void afficherEmployees();
+    public ArrayList<Employe> afficherEmployees();
 
 }

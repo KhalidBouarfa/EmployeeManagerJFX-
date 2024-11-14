@@ -1,12 +1,11 @@
-package services;
+package BusinessLayer;
 
 import models.Employe;
+import BusinessLayer.services.InterfaceGestionEmploye;
 
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
-public class GestionEmployeARRAYLIST implements InterfaceGestionEmploye{
+public class GestionEmployeARRAYLIST implements InterfaceGestionEmploye {
     private ArrayList<Employe> ListEmployes;
     public GestionEmployeARRAYLIST(){
         ListEmployes = new ArrayList<Employe>();
@@ -24,19 +23,8 @@ public class GestionEmployeARRAYLIST implements InterfaceGestionEmploye{
 
 
     @Override
-    public void afficherEmployees() {
-
-        if (ListEmployes.isEmpty()) {
-            System.out.println("Aucun employé n'est enregistré.");
-        } else {
-            for (Employe employe : ListEmployes) {
-                System.out.println("Matricule : " + employe.getMatricule());
-                System.out.println("Nom : " + employe.getNom());
-                System.out.println("Prénom : " + employe.getPrenom());
-                System.out.println("Adresse : " + employe.getAdresse());
-                System.out.println("-------------------------");
-            }
-        }
+    public ArrayList<Employe> afficherEmployees() {
+        return ListEmployes;
     }
 
     @Override

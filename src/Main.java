@@ -1,10 +1,7 @@
 import ComposantEmployes.IHMEmployes;
 import ComposantSalaires.IHMFichesSalaire;
-import models.Employe;
-import services.GestionEmploye;
-import services.GestionFicheSalaire;
+import BusinessLayer.GestionFicheSalaire;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {

@@ -1,15 +1,14 @@
-package services;
+package BusinessLayer.services;
 
-import models.Employe;
 import  models.FicheSalaire;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface InterfaceGestionFicheSalaire {
     public boolean ajouterFicheSalaire(FicheSalaire ficheSalaire,int matricule);
     public boolean modifierFicheSalaire(int nFiche, FicheSalaire nouvelleFiche);
     public boolean supprimerFicheSalaire(int matricule);
     public FicheSalaire rechercherFicheSalaire (int matricule);
-    public void afficherFichesSalaire();
+    public ArrayList<FicheSalaire> afficherFichesSalaire();
 
 }
