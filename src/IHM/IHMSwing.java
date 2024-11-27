@@ -1,14 +1,18 @@
-import ComposantEmployes.IHMEmployes;
-import ComposantSalaires.IHMFichesSalaire;
-import IHM.GestionEmployesSwing;
-import IHM.GestionFichesSalaireSwing;
+package IHM;
+
+import ComposantEmployes.IHMEmployesSwing;
+import ComposantEmployes.InterfaceIHMEmployes;
+import ComposantSalaires.IHMFichesSalaireSwing;
+import ComposantSalaires.InterfaceIHMFichesSalaire;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main_SWING {
-    public static void main(String[] args) {
+public class IHMSwing implements InterfaceIHM{
+
+    @Override
+    public void menu(InterfaceIHMEmployes ihmEmployes, InterfaceIHMFichesSalaire ihmFichesSalaire) {
         // Création de l'interface graphique principale (JFrame)
         JFrame frame = new JFrame("Menu Principal");
 
@@ -37,7 +41,7 @@ public class Main_SWING {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Lancer l'IHM de gestion des employés
-                new GestionEmployesSwing().setVisible(true);
+                new IHMEmployesSwing().menuEmployes();
                 frame.dispose(); // Fermer la fenêtre principale
             }
         });
@@ -47,7 +51,7 @@ public class Main_SWING {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Lancer l'IHM de gestion des fiches de salaire
-                new GestionFichesSalaireSwing().setVisible(true);
+                new IHMFichesSalaireSwing().setVisible(true);
                 frame.dispose(); // Fermer la fenêtre principale
             }
         });
@@ -62,3 +66,4 @@ public class Main_SWING {
         });
     }
 }
+

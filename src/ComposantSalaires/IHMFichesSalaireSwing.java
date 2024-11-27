@@ -1,12 +1,10 @@
-package IHM;
+package ComposantSalaires;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
-public class GestionFichesSalaireSwing extends JFrame {
+public class IHMFichesSalaireSwing extends JFrame {
 
-    public GestionFichesSalaireSwing() {
+    public IHMFichesSalaireSwing() {
         setTitle("Gestion des Salaires");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

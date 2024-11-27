@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class IHMFichesSalaire {
+public class IHMFichesSalaire implements InterfaceIHMFichesSalaire {
     private InterfaceGestionFicheSalaire gestionFicheSalaire;
     private InterfaceGestionEmploye gestionEmploye;
     private Scanner scanner;
@@ -22,7 +22,8 @@ public class IHMFichesSalaire {
         this.scanner = new Scanner(System.in);
     }
 
-    public void demarrer() {
+    @Override
+    public void menuFicheSalaire() {
         while (true) {
             System.out.println("********** MENU FICHE SALAIRE **********");
             System.out.println("1. Ajouter une fiche de salaire");
@@ -60,7 +61,8 @@ public class IHMFichesSalaire {
         }
     }
 
-    private void ajouterFicheSalaire() {
+    @Override
+    public void ajouterFicheSalaire() {
         System.out.println("donner le matricule de l'employe: ");
         int matricule = scanner.nextInt();
         //rechercher employe par son matricule
@@ -96,7 +98,8 @@ public class IHMFichesSalaire {
         }
     }
 
-    private void modifierFicheSalaire() {
+    @Override
+    public void modifierFicheSalaire() {
         System.out.print("Numéro de fiche à modifier: ");
         int nFiche = scanner.nextInt();
         // Demander les nouveaux détails de la fiche
@@ -123,7 +126,8 @@ public class IHMFichesSalaire {
         System.out.println("Fiche de salaire modifiée avec succès !");
     }
 
-    private void afficherFichesSalaire() {
+    @Override
+    public void afficherFichesSalaire() {
         ArrayList<FicheSalaire> listFicheSalaires =  gestionFicheSalaire.afficherFichesSalaire();
         if (listFicheSalaires.isEmpty()) {
             System.out.println("Aucune fiche salaire n'est enregistré.");
@@ -142,7 +146,8 @@ public class IHMFichesSalaire {
         }
     }
 
-    private void supprimerFicheSalaire(){
+    @Override
+    public void supprimerFicheSalaire(){
         System.out.println("Donnez le numero de la fiche : ");
         int nFiche = scanner.nextInt();
         if(gestionFicheSalaire.supprimerFicheSalaire(nFiche)){
@@ -152,7 +157,8 @@ public class IHMFichesSalaire {
         }
     }
 
-    private void rechercherFicheSalaire(){
+    @Override
+    public void rechercherFicheSalaire(){
         System.out.println("Donnez le numero de la fiche : ");
         int nFiche = scanner.nextInt();
 

@@ -1,4 +1,5 @@
 package ComposantEmployes;
+import BusinessLayer.GestionEmploye;
 import models.Employe;
 import BusinessLayer.GestionEmployeARRAYLIST;
 import BusinessLayer.services.InterfaceGestionEmploye;
@@ -6,16 +7,17 @@ import BusinessLayer.services.InterfaceGestionEmploye;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class IHMEmployes {
+public class IHMEmployes implements InterfaceIHMEmployes {
     private InterfaceGestionEmploye gestionEmploye;
     private Scanner scanner;
 
     public IHMEmployes() {
-        gestionEmploye = new GestionEmployeARRAYLIST();
+        gestionEmploye = new GestionEmploye();
         this.scanner = new Scanner(System.in);
     }
 
-    public void demarrer() {
+    @Override
+    public void menuEmployes() {
 
         while (true) {
             System.out.println("********** MENU Employes **********");
@@ -54,7 +56,8 @@ public class IHMEmployes {
         }
     }
 
-    private void ajouterEmploye() {
+    @Override
+    public void ajouterEmploye() {
         System.out.println("Entrez le matricule: ");
         int matricule = Integer.parseInt(scanner.nextLine());
 
@@ -75,7 +78,8 @@ public class IHMEmployes {
         }
     }
 
-    private void modifierEmploye() {
+    @Override
+    public void modifierEmploye() {
         System.out.print("Entrez le matricule de l'employé à modifier: ");
         int matricule = scanner.nextInt();
         scanner.nextLine();
@@ -97,7 +101,8 @@ public class IHMEmployes {
         }
     }
 
-    private void afficherEmployes() {
+    @Override
+    public void afficherEmployes() {
         ArrayList<Employe> ListEmployes =  gestionEmploye.afficherEmployees();
         if (ListEmployes.isEmpty()) {
             System.out.println("Aucun employé n'est enregistré.");
@@ -112,7 +117,8 @@ public class IHMEmployes {
         }
     }
 
-    private void rechercherEmployes(){
+    @Override
+    public void rechercherEmployes(){
         System.out.println("Donnez le matricule de l'employé : ");
         int matricule = scanner.nextInt();
 
@@ -129,7 +135,8 @@ public class IHMEmployes {
 
     }
 
-    private void supprimerEmploye(){
+    @Override
+    public void supprimerEmploye(){
         System.out.println("Donnez le matricule de l'employé à supprimer : ");
         int matricule = scanner.nextInt();
 

@@ -1,6 +1,9 @@
 import ComposantEmployes.IHMEmployes;
 import ComposantSalaires.IHMFichesSalaire;
 import BusinessLayer.GestionFicheSalaire;
+import IHM.IHMConsole;
+import IHM.IHMSwing;
+import IHM.InterfaceIHM;
 
 import java.util.Scanner;
 
@@ -13,31 +16,8 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        while(true){
-            System.out.println("********** MENU **********");
-            System.out.println("1. Gestion des Employes");
-            System.out.println("2. Gestion des Fiches Salaires");
-            System.out.println("0. Quitter");
-            System.out.print("Choix: ");
-            int choix = scanner.nextInt();
-            scanner.nextLine(); // Pour consommer la nouvelle ligne
+        InterfaceIHM ihm = new IHMSwing();
 
-            switch (choix){
-                case 1 :
-                    ihmEmployes.demarrer();
-                    break;
-                case 2 :
-                    ihmFichesSalaire.demarrer();
-                    break;
-                case 0 :
-                    System.out.println("Au revoir! ...");
-                    scanner.close();
-                    return; //Quitter l'application
-                default:
-                    System.out.println("Choix invalide. Veuillez réessayer.");
-            }
-
-        }
-
+        ihm.menu(ihmEmployes,ihmFichesSalaire);
     }
 }
