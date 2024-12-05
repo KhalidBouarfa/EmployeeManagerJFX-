@@ -51,7 +51,7 @@ public class IHMSwing implements InterfaceIHM{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Lancer l'IHM de gestion des fiches de salaire
-                new IHMFichesSalaireSwing().setVisible(true);
+                new IHMFichesSalaireSwing().menuFicheSalaire();
                 frame.dispose(); // Fermer la fenêtre principale
             }
         });

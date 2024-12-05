@@ -493,3 +493,16 @@ public class IHMEmployesSwing implements InterfaceIHMEmployes {
     }
 
 }
+
+//private int nFiche;
+//private LocalDate dateF;
+//private int nbHeures;
+//private int tauxH;
+//private double montantBrut;
+//private double tax;
+//private double montantNet;
+//private Employe employe;
+
+
+
+

@@ -133,7 +133,7 @@ public class IHMFichesSalaire implements InterfaceIHMFichesSalaire {
             System.out.println("Aucune fiche salaire n'est enregistré.");
         } else {
             for (FicheSalaire ficheSalaire : listFicheSalaires) {
-                System.out.println("Fiche de salaire N° : " + ficheSalaire.getNbHeures());
+                System.out.println("Fiche de salaire N° : " + ficheSalaire.getnFiche());
                 System.out.println("Date de la fiche : " + ficheSalaire.getDateF());
                 System.out.println("Nombre d'heures travaillées : " + ficheSalaire.getNbHeures());
                 System.out.println("Taux horaire : " + ficheSalaire.getTauxH() + " MAD");
